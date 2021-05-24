@@ -1,12 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import { Button, Dimensions, StyleSheet, Text, View,Alert } from 'react-native';
 import MapView, {Heatmap, Marker} from 'react-native-maps';
 import Marcador from './src/components/Marcador';
 import MapButton from './src/components/MapButton';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 
 export default function App() {
+
+
+
+  /*Solicitar localização*/ 
+  const [origin, setOrigin] = useState( null);
+  const [destination, setDestination] = useState( null);
+
+  useEffect(()=>{
+    (async function(){
+      const { status, permissions } = await Permissions.askAsync(Permissions.LOCATION);
+  if (status === 'granted') {
+    let location = await Location.getCurrentPositionAsync({enableHighAcurracy:true});
+  } else {
+    throw new Error('Localização não garantida');
+  }
+
+    })();
+  }, []);
+  /*Solicitar localização*/ 
+
+
   return (
     <View style={styles.container}>
     
