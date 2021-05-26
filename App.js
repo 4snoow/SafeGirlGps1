@@ -6,7 +6,7 @@ import Marcador from './src/components/Marcador';
 import MapButton from './src/components/MapButton';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-
+import MapViewDirections from 'react-native-maps-directions';
 
 export default function App() {
 
@@ -52,6 +52,24 @@ export default function App() {
       >
         <Marcador/>
      
+      
+      <MapViewDirections
+      
+      
+      
+      
+      />
+
+
+
+
+
+
+
+
+
+
+
 
 
         <Marker 
