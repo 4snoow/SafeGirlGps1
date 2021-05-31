@@ -1,102 +1,121 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{useState,useEffect,useRef} from 'react';
-import { Button, Dimensions, StyleSheet, Text, View,Alert } from 'react-native';
-import MapView, {Heatmap, Marker} from 'react-native-maps';
-import MapButton from './src/components/MapButton';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-import MapViewDirections from 'react-native-maps-directions';
-import {data} from './src/components/datamarkers';
-
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './src/views/Home'
+import Menu from './src/views/Menu'
+import Alerta from './src/views/Alerta'
+import Mapa from './src/views/Mapa'
+import Assistente from './src/views/Assistente'
+import Policia from './src/views/Policia'
 
 export default function App() {
 
-
-  /*Solicitar localização*/ 
-  const [origin, setOrigin] = useState( null);
-  const [destination, setDestination] = useState( null);
-
-  useEffect(()=>{
-    (async function(){
-      const { status, permissions } = await Permissions.askAsync(Permissions.LOCATION);
-  if (status === 'granted') {
-    let location = await Location.getCurrentPositionAsync({enableHighAcurracy:true});
-  } else {
-    throw new Error('Localização não garantida');
-  }
-
-    })();
-  }, []);
-  /*Solicitar localização*/ 
-
+  const Stack = createStackNavigator();
 
   return (
-    <View style={styles.container}>
-    
-      <MapButton
-        style ={{top:40, right:180}}
-      />
+    <NavigationContainer>
+      <Stack.Navigator>
 
-      <MapView
-      showsUserLocation={true}
-      zoomEnabled={true}
-      followsUserLocation={true}
-      style={styles.mapStyle}
-          initialRegion={{
-            latitude: -12.255476525161434,
-            longitude: -38.96073387038091,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          
-      >
-     
-      <MapViewDirections
-      
-      />
+        <Stack.Screen
+         name="Home" 
+         component={Home}
+         options={{
+          title: 'Safe Girl',
+          headerStyle: {
+            backgroundColor: '#AF3563',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center'
+        }}  
+         />
 
-      {/* Trazer os markers do mapa em datamarkers */}
-      {data.map(item => {
-        return(
-          <Marker 
-            coordinate={{
-              latitude: item.latitude,
-              longitude: item.longitude,
-            }}
-            title={item.title}
-            description={item.description}
-            icon = {{
-              uri: item.uri
-            }}
+        <Stack.Screen 
+          name="Menu" 
+          component={Menu}
+          options={{
+            title: 'Menu',
+            headerStyle: {
+              backgroundColor: '#AF3563',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center'
+          }}   
           />
-        )
-      })}
-      
 
+        <Stack.Screen 
+          name="Alerta" 
+          component={Alerta}
+          options={{
+            title: 'Alerta',
+            headerStyle: {
+              backgroundColor: '#AF3563',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center'
+          }}   
+          />
 
-        </MapView>
+        <Stack.Screen 
+          name="Mapa" 
+          component={Mapa}
+          options={{
+            title: 'Mapa',
+            headerStyle: {
+              backgroundColor: '#AF3563',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center'
+          }}   
+          />
 
-        
-    </View>
-    
+        <Stack.Screen 
+          name="Assistente" 
+          component={Assistente}
+          options={{
+            title: 'Assistente',
+            headerStyle: {
+              backgroundColor: '#AF3563',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center'
+          }}   
+          />
+
+        <Stack.Screen 
+          name="Policia" 
+          component={Policia}
+          options={{
+            title: 'Policia',
+            headerStyle: {
+              backgroundColor: '#AF3563',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center'
+          }}   
+          />
+
+      </Stack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e84393',
-    alignItems: 'center',
-    justifyContent: 'center',
-    
-  },
-  mapStyle: {
-    width:Dimensions.get('window').width,
-    height:'90%',
-
-    marginTop:10,
-    zIndex:1
-    
-  },
-  
-});
