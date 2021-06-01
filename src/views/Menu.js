@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
 import {Button} from 'react-native-elements'
-import bgImage from '../../assets/menu2.png'
+import bgImage from '../../assets/menu.png'
 
 export default function Login(props){
     return(

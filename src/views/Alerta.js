@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, ImageBackground, StyleSheet } from 'react-native';
-import bgImage from '../../assets/menu.png'
+import bgImage from '../../assets/background.png'
 
 export default function Alerta(props){
     return(
